@@ -38,7 +38,10 @@ class FrmCadCliente(FrmCadDefault):
         self.txtNome = TextBox(self)
         
         self.txtLogradouro = TextBox(self)
+        
         self.txtNumero = TextBox(self)
+        self.txtNumero.setValidator(QIntValidator()) # validando o campo de texto para aceitar somnte inteiros
+
         self.txtBairro = TextBox(self)
         self.txtCidade = TextBox(self)
         

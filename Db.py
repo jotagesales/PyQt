@@ -105,7 +105,6 @@ class ClientesDb(object):
 
 if __name__ == '__main__':
 	cliente = ClientesDb()
-	print cliente.ConsultaClientesPorNome('')
 
 	# tbl_clientes = 'CREATE TABLE CLIENTES(id integer not null primary key,\
 	# 							Nome Varchar(100) not null,\
