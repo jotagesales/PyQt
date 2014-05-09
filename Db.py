@@ -89,7 +89,7 @@ class ClientesDb(object):
 		'''Método consulta os dados do cliente passado o id como parâmetro'''
 		sql = 'SELECT * FROM CLIENTES WHERE id = "%i"' %(pId)
 		resultado = self.banco.cursor.execute(sql)
-		return resultado.fetchall()
+		return resultado.fetchone()
 		
 	def ConsultaTodosClientes(self):
 		sql = 'SELECT * FROM CLIENTES'
@@ -99,7 +99,7 @@ class ClientesDb(object):
 
 if __name__ == '__main__':
 	cliente = ClientesDb()
-	print cliente.ConsultaTodosClientes()
+	print cliente.ConsultaCliente(1)
 
 	# tbl_clientes = 'CREATE TABLE CLIENTES(id integer not null primary key,\
 	# 							Nome Varchar(100) not null,\
