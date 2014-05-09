@@ -96,10 +96,16 @@ class ClientesDb(object):
 		resultado = self.banco.cursor.execute(sql)
 		return resultado.fetchall()
 
+	def ConsultaClientesPorNome(self, pNome = ''):
+		print 'parametro:' + pNome
+		sql = 'SELECT id, Nome, Cidade, UF FROM CLIENTES WHERE Nome like("%' + pNome + '%")'
+		resultado = self.banco.cursor.execute(sql)
+		return resultado.fetchall()
+
 
 if __name__ == '__main__':
 	cliente = ClientesDb()
-	print cliente.ConsultaCliente(1)
+	print cliente.ConsultaClientesPorNome('')
 
 	# tbl_clientes = 'CREATE TABLE CLIENTES(id integer not null primary key,\
 	# 							Nome Varchar(100) not null,\
