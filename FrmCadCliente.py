@@ -16,9 +16,15 @@ class FrmCadCliente(FrmCadDefault):
         super(FrmCadCliente, self).__init__(parent)
         
         self.FrmCadClienteCreate()
+
+        #criando um objeto cliente DB ara que fique a disposição para interagir com o módulo de acesso a dados
+        self.clientedb = ClientesDb()
         
+        # conectando os clicks dos botoes as devidas funçoes
         self.btnPesquisar.clicked.connect(self.AbrePesquisa)
         self.btnSalvar.clicked.connect(self.Salvar)
+        self.btnExcluir.clicked.connect(self.__Excluir)
+
         
         
     def FrmCadClienteCreate(self):
@@ -80,8 +86,16 @@ class FrmCadCliente(FrmCadDefault):
     def __inserir(self, id, cpf, nome, logradouro, numero, bairro, cidade, uf):
         '''Método cria um objeto cliente do modulo de acesso a dados, e inclui um novo cliente no banco'''
         
-        clientedb = ClientesDb()
-        clientedb.Salvar(id, cpf, nome, logradouro, numero, bairro, cidade, uf)
+        self.clientedb.Salvar(id, cpf, nome, logradouro, numero, bairro, cidade, uf)
+
+    def __Excluir(self, pId):
+        try:
+            codigo = int(self.txtCodigo.text())
+            self.clientedb.Excluir(codigo)
+            
+        except Exception, e:
+            msg = MessageBox()
+            msg.critical(self, 'Cadastro de clientes', 'Ocorreu o seguinte erro ao tentar excluir: \n ' + str(e).decode('utf8'), MessageBox.Ok)
 
 
 if __name__ == '__main__':

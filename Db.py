@@ -67,7 +67,23 @@ class ClientesDb(object):
 		pass
 
 	def Excluir(self, pId):
-		pass
+		'''Recebe um id e exclui o registro do banco caso ele exista'''
+
+		try:
+			cliente = self.ConsultaCliente(pId)
+
+			# verificando se existe cliente com o ID passado, caso nao exista gera exceção
+			if cliente:
+				sql = 'DELETE FROM CLIENTES WHERE id = "%i"' %(pId)
+				self.banco.cursor.execute(sql)
+				self.banco.conn.commit()
+			else:
+				raise Exception('Não exite cliente com o código informado')
+
+		except Exception, e:
+			raise Exception('Não foi possíel excluir o registro: \n Messagem original: ' + str(e))
+
+
 
 	def ConsultaCliente(self, pId):
 		'''Método consulta os dados do cliente passado o id como parâmetro'''
