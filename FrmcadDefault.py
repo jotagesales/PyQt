@@ -24,6 +24,7 @@ class FrmCadDefault(Widget):
         self.layoutPrincipal = LayoutVertical()
         
         self.txtCodigo = TextBox(self)
+        self.txtCodigo.setReadOnly(True)
         self.txtCodigo.setFixedWidth(170)
         
         self.ckAtivo = CheckBox('Ativo', self)
@@ -45,12 +46,14 @@ class FrmCadDefault(Widget):
         #=======================================================================
         self.btnNovo = Botao('&Novo', self)
         self.btnSalvar = Botao('&Salvar', self)
+        self.btnExcluir = Botao('&Excluir', self)
         self.btnPesquisar = Botao('&Pesquisar', self)
         
         hboxBotoes = LayoutHorizontal()
         hboxBotoes.addStretch(2)
         hboxBotoes.addWidget(self.btnNovo)
         hboxBotoes.addWidget(self.btnSalvar)
+        hboxBotoes.addWidget(self.btnExcluir)
         hboxBotoes.addWidget(self.btnPesquisar)
         hboxBotoes.setSpacing(1)
         

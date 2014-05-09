@@ -8,6 +8,7 @@ from FrmcadDefault import FrmCadDefault
 from PyQt4.QtGui import QApplication
 from Base import *
 from FrmPesquisaCliente import FrmPesquisaCliente
+from Db import Db, ClientesDb
 
 class FrmCadCliente(FrmCadDefault):
     
@@ -17,7 +18,7 @@ class FrmCadCliente(FrmCadDefault):
         self.FrmCadClienteCreate()
         
         self.btnPesquisar.clicked.connect(self.AbrePesquisa)
-        self.btnSalvar.clicked.connect(self.Imprime)
+        self.btnSalvar.clicked.connect(self.Salvar)
         
         
     def FrmCadClienteCreate(self):
@@ -54,15 +55,33 @@ class FrmCadCliente(FrmCadDefault):
         frmPesquisa.show()
         frmPesquisa.exec_()
         
-    def Imprime(self):
-        print self.txtCPF.text()
-        print self.txtNome.text()
-        print self.txtLogradouro.text()
-        
-        print self.txtNumero.text()
-        print self.txtCodigo.text()
-        
+    def Salvar(self):
+        try:
+            #capturando os dados da tela
+            Codigo = self.txtCodigo.text()
+            CPF = self.txtCPF.text()
+            Nome = self.txtNome.text()
+            Logradouro = self.txtLogradouro.text()
+            Numero = int(self.txtNumero.text())
+            Bairro =self.txtBairro.text()
+            Cidade = self.txtBairro.text()
+            UF = str(self.txtUF.text()).upper()
+
+            if Codigo == '':
+                self.__inserir(Codigo, CPF, Nome, Logradouro, Numero, Bairro, Cidade, UF)
+                msg = MessageBox()
+                msg.information(self, 'Cadastro de clientes', 'CListe salvo com sucesso !!!', MessageBox.Ok)
+            else:
+                pass
+        except Exception, e:
+            msg = MessageBox()
+            msg.critical(self, 'Cadastro de clientes', 'Ocorreu o seguinte erro ao tentar inserir o cliente: \n ' + str(e), MessageBox.Ok)
     
+    def __inserir(self, id, cpf, nome, logradouro, numero, bairro, cidade, uf):
+        '''Método cria um objeto cliente do modulo de acesso a dados, e inclui um novo cliente no banco'''
+        
+        clientedb = ClientesDb()
+        clientedb.Salvar(id, cpf, nome, logradouro, numero, bairro, cidade, uf)
 
 
 if __name__ == '__main__':

@@ -82,3 +82,15 @@ class Grid(QTableWidget):
         
         #seleciona toda a linha quando clicado
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
+
+class MessageBox(QMessageBox):
+    
+    def __init__(self, parent = None):
+        super(MessageBox, self).__init__(parent)
+
+
+if __name__ == '__main__':
+    import sys
+    root = QApplication(sys.argv)
+    m = MessageBox()
+    help(m)
